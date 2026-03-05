@@ -25,3 +25,11 @@ Requirements:
 - Sort payments by amount (descending).						
 - Use Java Streams to implement filtering and statistics.						
 - Add a simple concurrency simulation: process payments in parallel using `CompletableFuture` or `parallelStream()`.		
+
+## Technologies
+- Java 21
+- Spring boot
+- Maven
+- Lombok
+- H2 database
+- Git
