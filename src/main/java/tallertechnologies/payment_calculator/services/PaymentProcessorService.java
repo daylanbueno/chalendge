@@ -43,6 +43,7 @@ public class PaymentProcessorService {
 
   public Collection<PaymentDto> findAll() {
     return repository.findAll().stream()
+      .sorted((p1, p2) -> p2.getAmount().compareTo(p1.getAmount()))
       .map(PaymentProcessorService::converterToDto)
       .toList();
   }
