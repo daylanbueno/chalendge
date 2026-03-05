@@ -1,15 +1,18 @@
 package tallertechnologies.payment_calculator.resources;
 
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tallertechnologies.payment_calculator.dtos.PaymentDto;
 import tallertechnologies.payment_calculator.services.PaymentProcessorService;
 
 @RestController
-@RequestMapping("payments")
+@RequestMapping("api/payments")
 @RequiredArgsConstructor
 public class PaymentProcessorResource {
 
@@ -18,6 +21,16 @@ public class PaymentProcessorResource {
   @PostMapping
   public PaymentDto  create(@RequestBody PaymentDto paymentDto) {
       return paymentProcessorService.save(paymentDto);
+  }
+
+  @GetMapping
+  public Collection<PaymentDto> findAll() {
+      return paymentProcessorService.findAll();
+  }
+
+  @GetMapping
+  public Collection<PaymentDto> findAllByStatus(@RequestParam String status) {
+      return paymentProcessorService.findByStatus(status);
   }
 
 }

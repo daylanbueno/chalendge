@@ -6,17 +6,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jdk.jshell.Snippet.Status;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import tallertechnologies.payment_calculator.enums.StatusEnum;
 
-@Data
 @Builder
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Payment {
+
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
   private Double amount;
   private String currency;
-  private Status status;
+  private StatusEnum status;
 }

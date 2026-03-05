@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tallertechnologies.payment_calculator.enums.StatusEnum;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentDto {
-  private String id;
-  private Double amount;
-  private String currency;
-  private StatusEnum status;
+public class PaymentStatisticDto {
+
 }
