@@ -2,10 +2,13 @@ package tallertechnologies.payment_calculator.services;
 
 
 import java.util.Collection;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tallertechnologies.payment_calculator.dtos.PaymentDto;
+import tallertechnologies.payment_calculator.dtos.PaymentStatisticDto;
 import tallertechnologies.payment_calculator.entity.Payment;
+import tallertechnologies.payment_calculator.enums.StatusEnum;
 import tallertechnologies.payment_calculator.repositories.PaymentRepository;
 
 @Service
@@ -48,5 +51,37 @@ public class PaymentProcessorService {
     return repository.findByStatus(status).stream()
       .map(PaymentProcessorService::converterToDto)
       .toList();
+  }
+
+  public PaymentStatisticDto findPaymentStatistic() {
+    var payments = repository.findAll();
+
+    var totalPayments = payments.size();
+
+    var amountSuccess = calculateTotalAmountSuccess(payments);
+
+    var averageAmountSuccess = calculateAverageAmountSuccess(payments);
+
+
+    return PaymentStatisticDto.builder()
+      .totalPayments(totalPayments)
+      .totalAmountSuccess(amountSuccess)
+      .totalAvarageAmountSuccess(averageAmountSuccess)
+      .build();
+  }
+
+  private static double calculateTotalAmountSuccess(List<Payment> payments) {
+    return payments.stream()
+      .filter(payment -> payment.getStatus().name().equals(StatusEnum.SUCCESS.name()))
+      .mapToDouble(Payment::getAmount)
+      .sum();
+  }
+
+  private static double calculateAverageAmountSuccess(List<Payment> payments) {
+    return payments.stream()
+      .filter(payment -> payment.getStatus().name().equals(StatusEnum.SUCCESS.name()))
+      .mapToDouble(Payment::getAmount)
+      .average()
+      .orElse(0.0);
   }
 }

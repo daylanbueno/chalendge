@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PaymentStatisticDto {
-
+  private Integer totalPayments;
+  private Double totalAmountSuccess;
+  private Double totalAvarageAmountSuccess;
 }

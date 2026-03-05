@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tallertechnologies.payment_calculator.dtos.PaymentDto;
+import tallertechnologies.payment_calculator.dtos.PaymentStatisticDto;
 import tallertechnologies.payment_calculator.services.PaymentProcessorService;
 
 @RestController
@@ -28,9 +29,14 @@ public class PaymentProcessorResource {
       return paymentProcessorService.findAll();
   }
 
-  @GetMapping
+  @GetMapping("/status")
   public Collection<PaymentDto> findAllByStatus(@RequestParam String status) {
       return paymentProcessorService.findByStatus(status);
+  }
+
+  @GetMapping("/statistic")
+  public PaymentStatisticDto findPaymentStatistic() {
+    return paymentProcessorService.findPaymentStatistic();
   }
 
 }
