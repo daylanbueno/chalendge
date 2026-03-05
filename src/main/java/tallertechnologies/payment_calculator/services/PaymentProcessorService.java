@@ -2,6 +2,7 @@ package tallertechnologies.payment_calculator.services;
 
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class PaymentProcessorService {
 
   public Collection<PaymentDto> findAll() {
     return repository.findAll().stream()
-      .sorted((p1, p2) -> p2.getAmount().compareTo(p1.getAmount()))
+      .sorted(Comparator.comparing(Payment::getAmount).reversed())
       .map(PaymentProcessorService::converterToDto)
       .toList();
   }
